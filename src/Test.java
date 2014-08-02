@@ -8,6 +8,7 @@ public class Test {
 		System.out.println("Weka loaded!!!");
 		LoadData ld = new LoadData();
 		FilterAttribute fa = new FilterAttribute(); 
+		SelectAttributes sa = new SelectAttributes();
 	}
 
 }
