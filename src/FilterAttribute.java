@@ -6,20 +6,22 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.FastVector;
 import weka.core.converters.ArffSaver;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Remove;
 import java.io.File;
 import java.io.IOException;
 
-public class LoadData {
+public class FilterAttribute {
 
-	LoadData() throws Exception
+	FilterAttribute() throws Exception
 	{
-		System.out.println("\nLoad Data called\n");
+		System.out.println("\nFilter Attribte called\n");
 		
-		loadDataset("dataset/titanic.arff");
+		Instances myDataset = loadDataset("dataset/titanic.arff");
 
-		Instances myDataset = createDataset();
+		// Instances myDataset = createDataset();
 		
-		saveDataset(myDataset, true);
+		filterDataset(myDataset);
 	}
 	
 	public static Instances loadDataset(String dataset) throws Exception
@@ -36,6 +38,22 @@ public class LoadData {
 		return data;
 	}
 	
+	public void filterDataset(Instances dataset) throws Exception 
+	{
+		String[] opts = new String[] {"-R", "2"};
+		Remove remove = new Remove();
+		remove.setOptions(opts);
+		remove.setInputFormat(dataset);
+		Instances newDataset = Filter.useFilter(dataset, remove);
+		
+		System.out.println("\nOriginal Data");
+		System.out.println(dataset.toString());
+		System.out.println("\nFiltered Data");
+		System.out.println(newDataset.toString());
+	}
+	
+	
+	/*
 	public static Instances createDataset() throws ParseException
 	{
 		// 1 Set up attributes
@@ -90,7 +108,9 @@ public class LoadData {
 		
 		return data;
 	}
+	*/
 	
+	/*
 	public static void saveDataset(Instances dataset, boolean batchSave) throws IOException
 	{
 		ArffSaver saver = new ArffSaver();
@@ -113,4 +133,5 @@ public class LoadData {
 			saver.writeIncremental(null);
 		}
 	}
+	*/
 }

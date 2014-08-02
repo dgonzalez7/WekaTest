@@ -6,8 +6,8 @@ public class Test {
 	public static void main(String[] args) throws Exception 
 	{
 		System.out.println("Weka loaded!!!");
-		LoadData m = new LoadData();
-
+		LoadData ld = new LoadData();
+		FilterAttribute fa = new FilterAttribute(); 
 	}
 
 }
