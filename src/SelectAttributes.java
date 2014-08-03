@@ -1,16 +1,21 @@
+import java.util.Random;
+
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Utils;
-
 import weka.attributeSelection.CfsSubsetEval;
 import weka.attributeSelection.GreedyStepwise;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.attributeSelection.PrincipalComponents;
+import weka.attributeSelection.ReliefFAttributeEval;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
+import weka.classifiers.Evaluation;
+import weka.classifiers.meta.AttributeSelectedClassifier;
+import weka.classifiers.trees.J48;
 
 
 public class SelectAttributes {
@@ -26,6 +31,7 @@ public class SelectAttributes {
 		selectExample(myDataset);
 		infoGainExample(myDataset);
 		pcaExample(myDataset);
+		classifierSpecificExample(myDataset);
 	}
 	
 	public static Instances loadDataset(String dataset) throws Exception
@@ -95,5 +101,25 @@ public class SelectAttributes {
 		
 		System.out.println("\nPCA Filtered Data");
 		System.out.println(newDataset);
+	}
+	
+	public static void classifierSpecificExample(Instances dataset) throws Exception
+	{
+		System.out.println("classifierSpecificExample called");
+		AttributeSelectedClassifier classifier = new AttributeSelectedClassifier();
+		ReliefFAttributeEval eval = new ReliefFAttributeEval();
+		Ranker search = new Ranker();
+		
+		J48 baseClassifier = new J48();
+
+		classifier.setClassifier(baseClassifier);
+		classifier.setEvaluator(eval);
+		classifier.setSearch(search);
+		
+		Evaluation evaluation = new Evaluation(dataset);
+		evaluation.crossValidateModel(classifier,  dataset, 10,  new Random(1));
+		
+		System.out.println("\nClassifier Specific Data");
+		System.out.println(evaluation.toSummaryString());
 	}
 }

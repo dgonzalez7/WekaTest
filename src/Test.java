@@ -9,6 +9,7 @@ public class Test {
 		LoadData ld = new LoadData();
 		FilterAttribute fa = new FilterAttribute(); 
 		SelectAttributes sa = new SelectAttributes();
+		TrainClassifier tc = new TrainClassifier();
 	}
 
 }
