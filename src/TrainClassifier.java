@@ -30,9 +30,6 @@ public class TrainClassifier {
 		// Instances myDataset = createDataset();
 		
 		buildClassifier(myDataset);
-		//infoGainExample(myDataset);
-		//pcaExample(myDataset);
-		//classifierSpecificExample(myDataset);
 	}
 	
 	public static Instances loadDataset(String dataset) throws Exception
@@ -70,6 +67,12 @@ public class TrainClassifier {
 		svm.buildClassifier(dataset);
 		System.out.println("Support Vector Machine");
 		System.out.println(svm);
+		
+		// Support vector machine
+		MyClassifier mc = new MyClassifier();
+		mc.buildClassifier(dataset);
+		System.out.println("My Custom Classifier");
+		System.out.println(mc);
 	}
 	
 }

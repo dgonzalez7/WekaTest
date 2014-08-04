@@ -10,6 +10,7 @@ public class Test {
 		FilterAttribute fa = new FilterAttribute(); 
 		SelectAttributes sa = new SelectAttributes();
 		TrainClassifier tc = new TrainClassifier();
+		// MyClassifier mc = MyClassifier();
 	}
 
 }
